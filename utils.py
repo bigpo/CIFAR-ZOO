@@ -110,19 +110,26 @@ def load_checkpoint(path, model, optimizer=None):
 
 
 def get_data_loader(transform_train, transform_test, config):
-    assert config.dataset == 'cifar10' or config.dataset == 'cifar100'
+    # assert config.dataset == 'cifar10' or config.dataset == 'cifar100'
     if config.dataset == "cifar10":
         trainset = torchvision.datasets.CIFAR10(
             root=config.data_path, train=True, download=True, transform=transform_train)
 
         testset = torchvision.datasets.CIFAR10(
             root=config.data_path, train=False, download=True, transform=transform_test)
-    else:
+    elif config.dataset == "cifar100":
         trainset = torchvision.datasets.CIFAR100(
             root=config.data_path, train=True, download=True, transform=transform_train)
 
         testset = torchvision.datasets.CIFAR100(
             root=config.data_path, train=False, download=True, transform=transform_test)
+    else: #custom
+        trainset = torchvision.datasets.CIFAR100(
+            root=config.data_path, train=True, transform=transform_train)
+
+        testset = torchvision.datasets.CIFAR100(
+            root=config.data_path, train=False, transform=transform_test)
+
 
     train_loader = torch.utils.data.DataLoader(
         trainset, batch_size=config.batch_size, shuffle=True, num_workers=config.workers)

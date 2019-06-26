@@ -9,13 +9,17 @@ import torchvision.transforms as transforms
 import torch.backends.cudnn as cudnn
 
 from tensorboardX import SummaryWriter
+# from torch.utils.tensorboard import SummaryWriter
 
 from easydict import EasyDict
 from models import *
 from utils import *
 
 parser = argparse.ArgumentParser(description='PyTorch CIFAR Dataset Training')
-parser.add_argument('--work-path', required=True, type=str)
+parser.add_argument('--work-path',
+                    # default='./experiments/custom/se_resnext29_16x64d',
+                    default='./experiments/cifar10/alexnet',
+                    type=str)
 parser.add_argument('--resume', action='store_true',
                     help='resume from checkpoint')
 
